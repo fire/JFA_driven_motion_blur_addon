@@ -1,5 +1,4 @@
 extends "res://addons/SphynxMotionBlurToolkit/Guertin/base_guertin_motion_blur.gd"
-class_name OldGuertinMotionBlur
 
 @export_group("Shader Stages")
 @export var blur_stage : ShaderStageResource = preload("res://addons/SphynxMotionBlurToolkit/Guertin/guertin_blur_stage.tres"):
