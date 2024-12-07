@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://yamvs4dx0of8"]
+[gd_scene load_steps=20 format=3 uid="uid://yamvs4dx0of8"]
 
 [ext_resource type="Script" uid="uid://cicy8abdqt21t" path="res://addons/SphynxMotionBlurToolkit/BaseClasses/mb_compositor.gd" id="1_6j0fh"]
 [ext_resource type="Resource" uid="uid://cslvcweyejh3c" path="res://addons/SphynxMotionBlurToolkit/PreBlurProcessing/default_camera_movement_component.tres" id="1_l0mxb"]
@@ -14,9 +14,20 @@
 [ext_resource type="Resource" uid="uid://bxfg45ubc2pv7" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_max_y_stage.tres" id="11_lhodj"]
 [ext_resource type="Resource" uid="uid://bqehecsdgt70s" path="res://addons/SphynxMotionBlurToolkit/Guertin/guertin_tile_variance_stage.tres" id="12_hnds1"]
 
-[sub_resource type="Environment" id="Environment_l0mxb"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_y72y8"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
-[sub_resource type="CompositorEffect" id="CompositorEffect_httyi"]
+[sub_resource type="Sky" id="Sky_6j0fh"]
+sky_material = SubResource("ProceduralSkyMaterial_y72y8")
+
+[sub_resource type="Environment" id="Environment_5tfsr"]
+background_mode = 2
+sky = SubResource("Sky_6j0fh")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CompositorEffect" id="CompositorEffect_l0mxb"]
 resource_local_to_scene = false
 resource_name = ""
 enabled = true
@@ -31,7 +42,7 @@ object_movement_component = ExtResource("4_qwua7")
 debug = false
 metadata/_custom_type_script = ExtResource("3_n0j6s")
 
-[sub_resource type="CompositorEffect" id="CompositorEffect_g1pnl"]
+[sub_resource type="CompositorEffect" id="CompositorEffect_idqh8"]
 resource_local_to_scene = false
 resource_name = ""
 enabled = true
@@ -53,8 +64,8 @@ minimum_user_threshold = 1.5
 debug = false
 metadata/_custom_type_script = ExtResource("7_sevjh")
 
-[sub_resource type="Compositor" id="Compositor_5tfsr"]
-compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_httyi"), SubResource("CompositorEffect_g1pnl")])
+[sub_resource type="Compositor" id="Compositor_n0j6s"]
+compositor_effects = Array[CompositorEffect]([SubResource("CompositorEffect_l0mxb"), SubResource("CompositorEffect_idqh8")])
 script = ExtResource("1_6j0fh")
 samples = 16
 intensity = 1.0
@@ -67,5 +78,9 @@ metadata/_custom_type_script = ExtResource("1_6j0fh")
 [node name="Node3D" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_l0mxb")
-compositor = SubResource("Compositor_5tfsr")
+environment = SubResource("Environment_5tfsr")
+compositor = SubResource("Compositor_n0j6s")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
